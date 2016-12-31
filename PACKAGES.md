@@ -14,16 +14,24 @@ To check how many packages are available on CRAN just write this command in your
 ##### Common operations with Packages 📊
 
 You install them from CRAN with `install.packages("myPackage")`.
+
 You use them in your R project with `library("x")` OR `require("myPackage")`.
+
 You get immediate help with `?myPackage` and `help(package = "myPackage")`.
+
 
 ##### Cheatsheet for Marketing Packages in R 📚
 
 _Legend_
+
 Analytics: 📕
+
 CRM: 📙
+
 Social Media: 📘
+
 Advertising: 📗
+
 Other: 📑
 
 | Package Name                 | Description                         | Category                          | Doc                                  |
