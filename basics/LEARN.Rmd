@@ -1,0 +1,520 @@
+# Getting Started with R 🚩
+
+In this document we'll have a walkthrough in R with definitions and practical examples.
+We'll start from scratch, so if you're already know R and all its funcionalities this might not the most interesting place for you.
+
+What we will cover here:
+
+- [Prerequisites](#prerequisites)
+- [Interfaces in R](#interfaces-in-r)
+- [Data Management](#data-management)
+- [Data Types in R](#data-types-in-r)
+- [I/O in R](#i/o-in-r)
+- [Basic Statistics](basic-statistics)
+- [Basic Charts](basic-charts)
+
+
+
+## 1. Prerequisites 🔻
+
+Go to the website [http://r-project.org](http://r-project.org) where is hosted the official R project.
+When I wrote this guide the latest version was <3.3.2 (Sincere Pumpkin Patch) has been released on Monday 2016-10-31.>.
+
+Now go to "https://cran.r-project.org/mirrors.html" and click the closest mirror file you see and download an R version compatible with your
+
+I do have OS so that's my file; http://cran.mirror.garr.it/mirrors/CRAN/bin/macosx/
+
+Search your new R application (command line application)
+
+
+## 2. Interfaces in R 🔻
+
+#### GUI 🖱
+
+RStudio is a free and OS IDE for R.
+
+RStudio should already be up and running in your local machine if you had followed the first step. Now, what is RStudio?
+
+#### Packages 📦
+
+In R, packages are the the fundamental unit of shareable code.
+A package group together compiled code, R functions, data, documentation, and tests, and is easy to share with others.
+
+*C*omprehensive *R* *A*rchive *N**etwork, or **CRAN**, is the public directory for R packages.
+CRAN contains at the the moment +9800 packages and the directory it's massively growing dy-by-day.
+
+To check how many packages are available on CRAN just write this command in your R console:
+`nrow(available.packages())` and it will return the number of available packages.
+
+Check out more here for [packages](https://github.com/leonardofed/og-r-web-analyst/blob/master/PACKAGES.md).
+
+## 3. Data Management 🔻
+
+#### How to create a variable:
+
+To create variables use the assignment operator <-. The more standard "equal" operator would work in R too. It's just not recommended.
+
+```
+# Creating variables
+
+# Saving a char in a varaible
+firstName <- "John"  # char variable
+str(firstName) # Check what's the data type
+
+# Saving a num in a veraible
+age <- 43  # num variable
+str(age) # Check what's the data type
+
+# Saving a vector in a veraible
+a <- c(1,2,3,4,-5,6) # numeric vector
+str(a)
+
+# Saving a vector in a veraible
+b<-matrix(1:5, nrow=5,ncol=5)
+str(b)
+```
+<br />
+
+#### Now learn how to rename a variable:
+
+```
+You can rename variables programmatically or interactively.
+# Renaming Variables
+
+data(cars) # Load cars dataset
+cars # View cars table
+
+install.packages("reshape")
+library(reshape) #install this external package
+cars <- rename(cars, c(dist="distance")) # Just renamed a variable in our data set
+```
+<br />
+
+#### What are Operators in R? ♠
+
+_Legend_
+Arithmetic Operators: 📕
+Logical Operators: 📙
+
+| Operator                 | Description                         | Category                          | Gotchas                                        |
+|---------------------------------------|--------------------------------|-------------------------------|------------------------------------------------|
+| `+` | addition | Arithmetic | [📕](#security-and-iam-gotchas-and-limitations) |
+| `-` | subtraction | Arithmetic | [📕](#s3-gotchas-and-limitations) |
+| `*` | multiplication | Arithmetic | [📕](#ec2-gotchas-and-limitations) |
+| `/` | division | Arithmetic | [📕](#cloudwatch-gotchas-and-limitations) |
+| `^ OR **` | exponentiation | Arithmetic | [📕](#ami-gotchas-and-limitations) |
+| `x %% y` | modulus (x mod y) 5%%2 is 1 | Arithmetic | [📕](#ami-gotchas-and-limitations) |
+| `x %/% y` | integer division 5%/%2 is 2 | Arithmetic | [📕](#ami-gotchas-and-limitations) |
+| `<` | less than | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `<=` | less than or equal to | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `>` | greater than | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `>=` | greater than | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `>=` | greater than or equal to | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `==` | exactly equal to | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `!=` | not equal to | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `!x` | Not x | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `x \ y` | x OR y | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `x & y` | x AND y | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+| `isTRUE(x)` | test if X is TRUE | Logical | [📙](#auto-scaling-gotchas-and-limitations) |
+
+<br />
+#### What are Built-in Functions in R? 📈
+
+_Legend_
+General Function: 📘
+Numeric Function: 📗
+Character Function: 📕
+Statistical Function: 📙
+
+
+| Function Name                 | Description                         | Category                          | Examples                                        |
+|---------------------------------------|--------------------------------|-------------------------------|------------------------------------------------|
+| `abs(x)` | Calculate the absolute value of x | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `sqrt(x)` | Calculate the square value of x | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `ceiling(x)` | Round up x | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `floor(x)` | Round down x | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `trunc(x)` | Truncate decimals numberstrunc(5.99) is 5 | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `round(x, digits=n)` | Specify for how how many digits you want to rund up | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `signif(x, digits=n)`	| Round up / down | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `cos(x), sin(x), tan(x)` | also acos(x), cosh(x), acosh(x), etc. | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `log(x)` | natural logarithm | Numeric Function | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `log10(x)` | common logarithm | Numeric Function | [📕](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `exp(x)` | e^x | Character Function | [📕](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `substr(x, start=n1, stop=n2)` | Extract or replace substrings in a character vector.| Character Function | [📕](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `grep(pattern, x , ignore.case=FALSE, fixed=FALSE)` | Find the pattern  | Character Function | [📕](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `sub(pattern, replacement, x, ignore.case =FALSE, fixed=FALSE)`	 | Find the pattern and replace | Character Function | [📕](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `strsplit(x, split)`	 | floor | Character Function | [📕](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `toupper(x)` | Uppercase | Character Function | [📕](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `tolower(x)` | Lowercase | Character Function | [📕](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `mean(x, trim=0, na.rm=FALSE)` | mean of object x | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `sd(x)` | standard deviation of object(x). also look at var(x) for variance and mad(x) for median absolute deviation. | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `median(x)` | median of x | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `quantile(x, probs)` | quantiles where x is the numeric vector whose quantiles are desired and probs is a numeric vector with probabilities in [0,1]. | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `range(x)` | range | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `sum(x)` | sum | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `diff(x, lag=1)` | differences between all consecutive values of a vector | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `min(x)` | minimum | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `max(x)` | maximum | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `qnorm(p)`	 | normal quantile. | Statistical Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `scale(x, center=TRUE, scale=TRUE)`	| column center or standardize a matrix | General Function | [📘](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `seq(from , to, by)` | generates a sequence of numbers. The additional parameters tell the function how to build the sequence | General Function | [📙](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `rep(x, ntimes)` | repete a certain value for n time (second paramter) | General Function | [📘](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+| `cut(x, n)` | it divides a numeric vector into different ranges| General Function | [📘](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/built-in-functions.R) |
+
+<br />
+
+#### Control Structures 〰
+
+| Control Str. Name                 | Description                         | Examples                     |
+|---------------------------------------|--------------------------------|-------------------------------|
+| if-else | absolute value |[📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/control-structures.R) |
+| for | absolute value | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/control-structures.R) |
+| while| absolute value | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/control-structures.R) |
+| switch | absolute value | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/control-structures.R) |
+| ifelse | absolute value | [📗](https://github.com/leonardofed/og-r-web-analyst/blob/master/library/control-structures.R) |
+
+__if-else__
+
+```
+# Simple if else if statement
+x <- 0
+if (x < 0) {
+  print("Negative number")
+} else if (x > 0) {
+  print("Positive number")
+} else
+  print("Zero")
+```
+
+
+ __for__
+
+#Control Structures - FOR
+
+```
+for (val in sequence)
+{
+  statement
+}
+
+x <- c(2,5,3,9,8,11,6)
+count <- 0
+for (val in x) {
+  if(val %% 2 == 0)  count = count+1
+}
+print(count)
+```
+
+
+__while__
+
+```
+#Control Structures - WHILE
+
+while (test_expression)
+{
+  statement
+}
+
+i <- 1
+
+while (i < 6) {
+  print(i)
+  i = i+1
+}
+```
+
+__switch__
+
+``switch(expr, ...)``
+
+__ifelse__
+
+```
+#Control Structures - IFELSE
+
+ifelse(test_expression,x,y)
+
+a = c(5,7,2,9)
+ifelse(a %% 2 == 0,"even","odd")
+```
+
+
+#### Custom Functions ➰
+
+```
+myFunction<-function(n) #your function name
+{
+  if (n < 0) { # we'll use the if statement in our function
+    print("Negative number")
+  } else if (n > 0) {
+    print("Positive number")
+  } else
+    print("Zero")
+}
+
+# now define a value
+k<-10
+# call your function
+m <- myFunction(k)
+```
+
+
+#### Sorting Data 📏
+
+
+To sort a data frame in R, use the order( ) function. By default, sorting is ASCENDING. Prepend the sorting variable by a minus sign to indicate DESCENDING order. Here are some examples.
+
+#### Merging Data 🖇
+
+Adding Columns
+To merge two data frames use the merge function. To join to set of data you will need a a common variable that you will use as ID.
+
+```c
+# Merging files
+
+# Load data
+?longley
+data(longley)
+
+# Split up the data
+x <- longley[1:14, 1:6]  # Starting data
+y <- longley[1:14, 6:7]  # New column to add
+z <- longley[15:16, ]     # New rows to add
+write.table(x, "~/og-r-web-analyst/library/x.txt", sep="\t")
+write.table(y, "~/og-r-web-analyst/library/y.txt", sep="\t")
+write.table(z, "~/og-r-web-analyst/library/z.txt", sep="\t")
+
+# Import data
+xt <- read.table("~/og-r-web-analyst/library/x.txt", sep="\t")
+yt <- read.table("~/og-r-web-analyst/library/y.txt", sep="\t")
+
+# Take early years (a1t) and add columns (a2t)
+# Must specify variable to match cases
+x.y <- merge(xt, yt, by = "Year")  # Merge two data frames
+x.y
+```
+
+See source file >>
+
+#### Adding Rows ➕
+
+To join two data frames (datasets) vertically, use the rbind function. The two data frames must have the same variables, but they do not have to be in the same order.
+
+```
+# Add two more cases at bottom
+z <- read.table("~/og-r-web-analyst/library/z.txt", sep="\t")
+all.data <- rbind(x.y, z)
+row.names(all.data) <- NULL  # Reset row names
+all.data  # Check data``
+```
+See source file >>
+
+
+## 4. Data Types in R 🔻
+
+#### Vectors 🔼
+
+Lemme: what is a vector in R? Why do we use it? Why it's so important? How many type of vectors exist?
+
+```
+v <- c(1,2,3,4,5)
+v
+> [1] 1 2 3 4 5
+```
+
+```
+a <- c(1,2,5.3,6,-2,4) # numeric vector
+b <- c("one","two","three") # character vector
+c <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) #logical vector
+```
+
+Refer to elements of a vector using subscripts.
+
+`a[c(2,4)] # 2nd and 4th elements of vector`
+
+
+#### Matrices ⏹
+
+All columns in a matrix must have the same mode(numeric, character, etc.) and the same length. The general format is
+
+```
+mymatrix <- matrix(vector, nrow=r, ncol=c, byrow=FALSE,
+dimnames=list(char_vector_rownames, char_vector_colnames))
+```
+
+
+```
+byrow=TRUE # Indicates that the matrix should be filled by rows.
+byrow=FALSE # Indicates that the matrix should be filled by columns (the default).
+dimnames # Provides optional labels for the columns and rows.
+```
+
+```
+# generates 5 x 4 numeric matrix
+y<-matrix(1:20, nrow=5,ncol=4)
+
+# another example
+
+cells <- c(1,26,24,68)
+rnames <- c("R1", "R2")
+cnames <- c("C1", "C2")
+mymatrix <- matrix(cells, nrow=2, ncol=2, byrow=TRUE,
+  dimnames=list(rnames, cnames))
+```  
+
+
+
+#### Data frames 🔣
+
+Lemme: what is a data frame? Why do we use that? Why it's so important? How many type of vectors exist?
+
+Technical info about Data Frames:
+The top line of the table is called the `header`. Not so different from Excel?
+
+
+**Input**
+
+```
+a = c(1, 2, 3)
+b = c("mark", "Zoe", "Jack")
+c = c(TRUE, FALSE, TRUE)
+df = data.frame(a, b, c)        # df is a data frame
+```
+
+**Output**
+
+```
+a    b     c
+1 1 mark  TRUE
+2 2  Zoe FALSE
+3 3 Jack  TRUE
+```
+
+You can test many different built-in data frames:
+
+```
+mtcars
+               mpg cyl disp  hp drat   wt ...
+Mazda RX4     21.0   6  160 110 3.90 2.62 ...
+Mazda RX4 Wag 21.0   6  160 110 3.90 2.88 ...
+Datsun 710    22.8   4  108  93 3.85 2.32 ...
+```
+
+The top line of the table, called the header, contains the column names. Each horizontal line afterward denotes a data row, which begins with the name of the row, and then
+followed by the actual data. Each data member of a row is called a cell.
+
+```
+mtcars[1, 2]
+[1] 6
+```
+
+Moreover, we can use the row and column names instead of the numeric coordinates.
+
+```
+mtcars["Mazda RX4", "cyl"]
+[1] 6
+```
+
+Lastly, the number of data rows in the data frame is given by the nrow function.
+
+```
+nrow(mtcars)    # number of data rows
+[1] 32
+```
+
+And the number of columns of a data frame is given by the ncol function.
+
+```
+ncol(mtcars)    # number of columns
+[1] 11
+```
+
+Further details of the mtcars data set is available in the R documentation.
+
+`help(mtcars)`
+
+_(Preview)_
+
+Instead of printing out the entire data frame, it is often desirable to preview it with the head function beforehand.
+
+```
+head(mtcars)
+               mpg cyl disp  hp drat   wt ...
+Mazda RX4     21.0   6  160 110 3.90 2.62 ...
+```
+<br />
+
+#### Lists 🔢
+
+An ordered collection of objects (components). A list allows you to gather a variety of (possibly unrelated) objects under one name.
+
+
+```
+#example of a list with 4 components -
+# a string, a numeric vector, a matrix, and a scaler
+w <- list(name="Fred", mynumbers=a, mymatrix=y, age=5.3)
+
+# example of a list containing two lists
+
+v <- c(list1,list2)
+#Identify elements of a list using the [[]] convention.
+mylist[[2]] # 2nd component of the list
+mylist[["mynumbers"]] # component named mynumbers in list
+```
+<br />
+
+#### Factors 🔤
+
+Tell R that a variable is nominal by making it a factor. The factor stores the nominal values as a vector of integers in the range [ 1... k ] (where k is the number of unique values in the nominal variable), and an internal vector of character strings (the original values) mapped to these integers.
+
+```
+# variable gender with 20 "male" entries and
+# 30 "female" entries
+
+gender <- c(rep("male",20), rep("female", 30))
+gender <- factor(gender)
+
+# stores gender as 20 1s and 30 2s and associates
+# 1=female, 2=male internally (alphabetically)
+# R now treats gender as a nominal variable
+```
+
+``summary(gender)``
+
+An ordered factor is used to represent an ordinal variable.
+
+
+```
+# variable rating coded as "large", "medium", "small'
+> rating <- ordered(rating)
+
+# recodes rating to 1,2,3 and associates
+# 1=large, 2=medium, 3=small internally
+# R now treats rating as ordinal
+```
+
+R will treat factors as nominal variables and ordered factors as ordinal variables in statistical proceedures and graphical analyses. You can use options in the factor( ) and ordered( ) functions to control the mapping of integers to strings (overiding the alphabetical ordering). You can also use factors to create value labels. For more on factors see the UCLA page.
+
+```
+### Useful Functions
+
+ length(object) # number of elements or components
+ str(object)    # structure of an object
+ class(object)  # class or type of an object
+ names(object)  # names
+
+ c(object,object,...)       # combine objects into a vector
+ cbind(object, object, ...) # combine objects as columns
+ rbind(object, object, ...) # combine objects as rows
+
+ object     # prints the object
+
+ ls()       # list current objects
+ rm(object) # delete an object
+
+ newobject <- edit(object) # edit copy and save as newobject
+ fix(object)               # edit in place
+ ```
+
+### Date Values
